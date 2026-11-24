@@ -1,0 +1,12 @@
+agent-default-model:
+  provider: gb10-local
+  model: deepseek-v4.1-flash-1017
+llm-pi-ai:
+  providers:
+    gb10-local:
+      api: openai-completions
+      baseURL: http://127.0.0.1:8000/v1
+      apiKeyEnv: API_KEY
+      models:
+        - id: deepseek-v4.1-flash-1017
+          contextWindow: 1048576

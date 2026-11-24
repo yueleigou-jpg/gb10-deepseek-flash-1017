@@ -1,0 +1,22 @@
+[Unit]
+Description=DeepSeek Flash 1017 four-Spark cluster
+Wants=network-online.target
+After=network-online.target docker.service spark-cluster-control.service
+Requires=docker.service spark-cluster-control.service
+
+[Service]
+Type=notify
+NotifyAccess=all
+User=%i
+WorkingDirectory=/home/%i/spark-deploy
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/usr/bin/python3 /home/%i/spark-deploy/scripts/cluster.py serve
+ExecStopPost=/usr/bin/python3 /home/%i/spark-deploy/scripts/cluster.py stop
+TimeoutStartSec=7500
+TimeoutStopSec=300
+Restart=no
+KillMode=control-group
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target

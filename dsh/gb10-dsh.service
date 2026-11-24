@@ -1,0 +1,20 @@
+[Unit]
+Description=DeepSeek Harness for four-node GB10 cluster
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/spark-deploy/dsh/workspace
+Environment=DSH_HOME=%h/spark-deploy/dsh/home
+Environment=PATH=%h/spark-deploy/dsh/package/node-v24.14.0-linux-arm64/bin:/usr/local/bin:/usr/bin:/bin
+EnvironmentFile=%h/spark-deploy/state/backend.env
+RuntimeDirectory=gb10-dsh
+RuntimeDirectoryMode=0700
+UMask=0077
+NoNewPrivileges=yes
+ExecStart=/usr/bin/python3 %h/spark-deploy/dsh/serve.py
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target

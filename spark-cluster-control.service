@@ -1,0 +1,13 @@
+[Unit]
+Description=Spark cluster control over dedicated ConnectX links
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/local/libexec/spark-cluster-control apply
+ExecStop=/usr/local/libexec/spark-cluster-control remove
+
+[Install]
+WantedBy=multi-user.target
